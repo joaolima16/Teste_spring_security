@@ -22,7 +22,7 @@ public class TokenService {
 
     public String generateToken(User user) {
         try {
-            System.out.println(secret);
+
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("auth-api")
@@ -36,6 +36,7 @@ public class TokenService {
     }
 
     public String validateToken(String token) {
+        System.out.println(token);
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)

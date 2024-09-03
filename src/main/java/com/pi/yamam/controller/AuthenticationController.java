@@ -16,6 +16,7 @@ import com.pi.yamam.domain.user.AuthenticationDTO;
 import com.pi.yamam.domain.user.LoginResponseDTO;
 import com.pi.yamam.domain.user.RegisterDTO;
 import com.pi.yamam.domain.user.User;
+import com.pi.yamam.domain.user.UserStatus;
 import com.pi.yamam.infra.security.TokenService;
 import com.pi.yamam.repositories.UserRepository;
 
@@ -54,10 +55,9 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
-      
-
+    
         String passEncripted = passwordEncoder.encode(data.password());
-        User newUser = new User(data.name(), data.cpf(), data.email(), passEncripted, data.userStatus(), data.role());
+        User newUser = new User(data.name(), data.cpf(), data.email(), passEncripted, UserStatus.ACTIVE, data.role());
         this.userRepository.save(newUser);
         return ResponseEntity.ok(newUser);
 
