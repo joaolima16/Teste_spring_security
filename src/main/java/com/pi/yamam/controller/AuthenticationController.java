@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
+
 public class AuthenticationController {
 
     @Autowired
@@ -39,7 +41,7 @@ public class AuthenticationController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
         User user = userRepository.findByEmail(data.email()).orElseThrow(() -> new RuntimeException("User not found!"));
